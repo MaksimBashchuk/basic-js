@@ -2,9 +2,12 @@ const CustomError = require("../extensions/custom-error");
 
 module.exports = class DepthCalculator {
 
+
   calculateDepth(arr) {
-    if (Array.isArray(arr)) {
-      return 1 + Math.max(...arr.map((item) => item.calculateDepth()));
+    if (arr.some(i => Array.isArray(i))) {
+      return 1 + this.calculateDepth(arr.flat());
+    } else {
+      return 1;
     }
   }
-};  
+};
